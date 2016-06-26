@@ -6,16 +6,22 @@ import Sidebar from './Sidebar';
 import ListView from './ListView';
 
 class HomePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       <div className="container">
         <div className="row">
-          <Sidebar />
-          <ListView />
+          <Sidebar name={this.props.name}
+            lists={this.props.lists}
+            active={this.props.activeList}
+          />
+          <ListView
+            items={this.props.items}
+            activeList={this.props.activeList}
+          />
         </div>
       </div>
     );
@@ -25,17 +31,15 @@ class HomePage extends React.Component {
 // Main.propTypes = {
 // };
 //
-// let mapStateToProps = (state) => {
-//   return {
-//     name: state.name,
-//     lists: Object.keys(state.lists),
-//     activeList: state.activeList,
-//     items: [...state.lists[state.activeList]]
-//   };
-// };
-//
-// let mapDispatchToProps = dispatch => ({actions: bindActionCreators(actions, dispatch)});
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Main);
+ let mapStateToProps = (state) => {
+  return {
+    name: state.user,
+    lists: Object.keys(state.lists),
+    activeList: state.activeList,
+    items: state.lists[state.activeList]
+  };
+};
 
-export default HomePage;
+let mapDispatchToProps = dispatch => ({actions: bindActionCreators(actions, dispatch)});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

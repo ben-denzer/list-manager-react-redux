@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const App = (props) => {
   return (
@@ -33,6 +33,10 @@ const App = (props) => {
       {props.children}
     </div>
   );
+};
+
+App.propTypes = {
+  children: PropTypes.object.isRequired
 };
 
 export default App;

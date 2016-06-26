@@ -1,0 +1,30 @@
+import React from 'react';
+
+const ListItem = (props) => {
+  let iconClassName = 'glyphicon glyphicon-';
+
+  props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
+  return (
+    <div>
+      <div className="row">
+        <div style={styles.itemStyle} className="col-md-12">
+          <span className={iconClassName}></span>
+          <span style={styles.itemTitleStyle}>{props.item}</span>
+          <button className="btn btn-danger btn-sm pull-right">Remove Item</button>
+        </div>
+      </div>
+      <hr />
+    </div>
+  );
+};
+
+let styles = {
+  itemTitleStyle: {
+    marginLeft: '20px',
+  },
+  itemStyle: {
+    fontSize: '14pt'
+  }
+}
+
+export default ListItem;

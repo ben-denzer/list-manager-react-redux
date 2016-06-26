@@ -1,5 +1,11 @@
 // Set up your root reducer here...
 import { combineReducers } from 'redux';
-import list from './listReducer';
+import lists from './listsReducer';
+import user from './userReducer';
+import activeList from './activeListReducer';
 
-export default combineReducers({list});
+export default combineReducers({
+  lists,
+  user,
+  activeList
+});

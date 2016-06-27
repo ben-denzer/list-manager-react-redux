@@ -16,10 +16,11 @@ const Sidebar = (props) => {
         id={lists[i]}
         style={styles.sidebarButtonStyle}
         className={isActive}
+        onClick={() => props.changeActive(lists[i])}
       >
         {lists[i]}
       </a>
-    )
+    );
   }
   return (
     <div className="col-xs-12 col-sm-3">
@@ -35,7 +36,7 @@ const styles = {
   sidebarButtonStyle: {cursor: 'pointer'},
   noListsStyle: {
     fontSize: '18pt',
-    marginTop: '10px',
+    marginTop: '10px'
   },
   nameStyle: {
     marginTop: '10px',

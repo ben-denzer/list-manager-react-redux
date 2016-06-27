@@ -1,6 +1,7 @@
 export default {
   activeList: 'store1',
   name: 'InitialLoad',
+  newItemText: 'a',
   lists: {
     store1: [
       {

@@ -1,4 +1,7 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import * as actions from '../actions/listActions';
 
 const ListItem = (props) => {
   let iconClassName = 'glyphicon glyphicon-';
@@ -7,7 +10,11 @@ const ListItem = (props) => {
   return (
     <div>
       <div className="row">
-        <div style={styles.itemStyle} className="col-md-12">
+        <div
+          style={styles.itemStyle}
+          onClick={() => props.actions.toggleCheck(props.item, props.activeList)}
+          className="col-md-12"
+        >
           <span className={iconClassName}></span>
           <span style={styles.itemTitleStyle}>{props.item}</span>
           <button className="btn btn-danger btn-sm pull-right">Remove Item</button>
@@ -20,11 +27,23 @@ const ListItem = (props) => {
 
 let styles = {
   itemTitleStyle: {
-    marginLeft: '20px',
+    marginLeft: '20px'
   },
   itemStyle: {
     fontSize: '14pt'
   }
-}
+};
 
-export default ListItem;
+let mapStateToProps = (state) => {
+  return {
+    activeList: state.activeList
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListItem);

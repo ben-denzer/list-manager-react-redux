@@ -1,1 +1,5 @@
 export const LIST_LOADED = 'LIST_LOADED';
+export const TOGGLE_CHECK = 'TOGGLE_CHECK';
+export const CHANGE_ACTIVE = 'CHANGE_ACTIVE';
+export const DELETE_LIST = 'DELETE_LIST';
+export const NEW_ITEM_TEXT_CHANGE = 'NEW_ITEM_TEXT_CHANGE';

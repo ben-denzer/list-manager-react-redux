@@ -3,18 +3,20 @@ import ListItem from './ListItem';
 
 const ListView = (props) => {
   let items = props.items || [];
-  let eachItem = [<ListItem key="noItem" item="No Items In List" />];
+  let eachItem = [];
 
   for (let i = 0; i < items.length; i++) {
-    eachItem[i] = (
-      <ListItem
-        key={i}
-        item={items[i].item}
-        checked={items[i].finished}
-      />
-    );
+    if (items[i]) {
+      eachItem[i] = (
+        <ListItem
+          key={i}
+          item={items[i].item}
+          itemIndex={i}
+          checked={items[i].finished}
+        />
+      );
+    }
   }
-
   return (
     <div className="col-xs-12 col-sm-9">
       <div style={styles.showPointer} className="well">
@@ -26,12 +28,15 @@ const ListView = (props) => {
         </div>
         <hr />
 
-        <div style={!props.activeList ? styles.hidden : null}>
+        <div style={props.activeList ? !props.items.length ? styles.hidden : null : null}>
 
           {eachItem}
 
+        </div>
+
+        <div style={!props.activeList ? styles.hidden : null}>
           <input value={props.newItemText} onChange={props.newItemTextChange} />&nbsp;&nbsp;
-          <button className="btn btn-success">Add Item</button>
+          <button onClick={() => props.addNewItem()} className="btn btn-success">Add Item</button>
         </div>
       </div>
     </div>

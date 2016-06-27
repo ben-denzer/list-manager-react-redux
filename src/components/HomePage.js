@@ -12,6 +12,9 @@ class HomePage extends React.Component {
     this.changeActive = this.changeActive.bind(this);
     this.deleteList = this.deleteList.bind(this);
     this.newItemTextChange = this.newItemTextChange.bind(this);
+    this.newListTextChange = this.newListTextChange.bind(this);
+    this.addNewList = this.addNewList.bind(this);
+    this.addNewItem = this.addNewItem.bind(this);
   }
 
   changeActive(newActive) {
@@ -29,6 +32,18 @@ class HomePage extends React.Component {
     this.props.actions.newItemTextChange(e.target.value);
   }
 
+  newListTextChange(e) {
+    this.props.actions.newListTextChange(e.target.value);
+  }
+
+  addNewList() {
+    this.props.actions.addNewList(this.props.newListText);
+  }
+
+  addNewItem() {
+    this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+  }
+
   render() {
     return (
       <div className="container">
@@ -37,6 +52,9 @@ class HomePage extends React.Component {
             lists={this.props.lists}
             active={this.props.activeList}
             changeActive={this.changeActive}
+            newListText={this.props.newListText}
+            newListTextChange={this.newListTextChange}
+            addNewList={this.addNewList}
           />
           <ListView
             items={this.props.items}
@@ -44,6 +62,7 @@ class HomePage extends React.Component {
             deleteList={this.deleteList}
             newItemText={this.props.newItemText}
             newItemTextChange={this.newItemTextChange}
+            addNewItem={this.addNewItem}
           />
         </div>
       </div>
@@ -57,7 +76,8 @@ class HomePage extends React.Component {
     lists: Object.keys(state.lists),
     activeList: state.activeList,
     items: state.lists[state.activeList],
-    newItemText: state.newItemText
+    newItemText: state.text.newItemText,
+    newListText: state.text.newListText
   };
 };
 

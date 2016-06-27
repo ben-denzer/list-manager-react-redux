@@ -3,11 +3,11 @@ import { combineReducers } from 'redux';
 import lists from './listsReducer';
 import user from './userReducer';
 import activeList from './activeListReducer';
-import newItemText from './newItemTextReducer';
+import text from './textReducer';
 
 export default combineReducers({
   lists,
   user,
   activeList,
-  newItemText
+  text
 });

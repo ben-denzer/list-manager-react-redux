@@ -13,8 +13,8 @@ export function loadList() {
   };
 }
 
-export function toggleCheck(item, activeList) {
-  return {type: types.TOGGLE_CHECK, item, activeList};
+export function toggleCheck(itemIndex, activeList) {
+  return {type: types.TOGGLE_CHECK, itemIndex, activeList};
 }
 
 export function changeActive(newActive) {
@@ -27,4 +27,20 @@ export function deleteList(activeList) {
 
 export function newItemTextChange(currentText) {
   return {type: types.NEW_ITEM_TEXT_CHANGE, currentText};
+}
+
+export function newListTextChange(currentText) {
+  return {type: types.NEW_LIST_TEXT_CHANGE, currentText};
+}
+
+export function addNewList(name) {
+  return {type: types.ADD_NEW_LIST, name};
+}
+
+export function deleteItem(itemIndex, activeList) {
+  return {type: types.DELETE_ITEM, itemIndex, activeList};
+}
+
+export function addNewItem(itemName, activeList) {
+  return {type: types.ADD_NEW_ITEM, itemName, activeList};
 }

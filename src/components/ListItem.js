@@ -12,12 +12,17 @@ const ListItem = (props) => {
       <div className="row">
         <div
           style={styles.itemStyle}
-          onClick={() => props.actions.toggleCheck(props.item, props.activeList)}
-          className="col-md-12"
-        >
+          onClick={() => props.actions.toggleCheck(props.itemIndex, props.activeList)}
+          className="col-md-12">
+
           <span className={iconClassName}></span>
           <span style={styles.itemTitleStyle}>{props.item}</span>
-          <button className="btn btn-danger btn-sm pull-right">Remove Item</button>
+          <button
+            onClick={() => props.actions.deleteItem(props.itemIndex, props.activeList)}
+            className="btn btn-danger btn-sm pull-right">
+              Remove Item
+          </button>
+
         </div>
       </div>
       <hr />

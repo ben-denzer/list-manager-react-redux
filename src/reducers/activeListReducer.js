@@ -4,6 +4,8 @@ export default function activeListReducer(state = initialState.activeList, actio
   switch(action.type) {
     case 'CHANGE_ACTIVE':
       return action.newActive;
+    case 'ADD_NEW_LIST':
+      return action.name;
     case 'DELETE_LIST':
       return '';
     default:

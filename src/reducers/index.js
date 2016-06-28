@@ -4,10 +4,12 @@ import lists from './listsReducer';
 import user from './userReducer';
 import activeList from './activeListReducer';
 import text from './textReducer';
+import trash from './trashReducer';
 
 export default combineReducers({
   lists,
   user,
   activeList,
-  text
+  text,
+  trash
 });

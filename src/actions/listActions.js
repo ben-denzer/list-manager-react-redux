@@ -28,6 +28,22 @@ export function deleteItem(itemIndex, activeList) {
   return {type: types.DELETE_ITEM, itemIndex, activeList};
 }
 
+export function undoDelete() {
+  clearTimeout(undoTimer);
+  return {type: types.UNDO_DELETE};
+}
+
+export function deleteItemTemp(itemIndex, activeList, itemName) {
+  return (dispatch) => {
+    dispatch(putInTrash(itemName));
+    window.undoTimer = setTimeout(() => dispatch(deleteItem(itemIndex, activeList)), 4000);
+  };
+}
+
+function putInTrash(itemName) {
+  return {type: types.DELETE_ITEM_TEMP, itemName};
+}
+
 export function addNewItem(itemName, activeList) {
   return {type: types.ADD_NEW_ITEM, itemName, activeList};
 }

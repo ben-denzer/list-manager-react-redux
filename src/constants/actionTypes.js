@@ -6,4 +6,6 @@ export const NEW_ITEM_TEXT_CHANGE = 'NEW_ITEM_TEXT_CHANGE';
 export const NEW_LIST_TEXT_CHANGE = 'NEW_LIST_TEXT_CHANGE';
 export const ADD_NEW_LIST = 'ADD_NEW_LIST';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const DELETE_ITEM_TEMP = 'DELETE_ITEM_TEMP';
+export const UNDO_DELETE = 'UNDO_DELETE';
 export const ADD_NEW_ITEM = 'ADD_NEW_ITEM';

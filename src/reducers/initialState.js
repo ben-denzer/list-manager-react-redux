@@ -5,6 +5,7 @@ export default {
     newListText: '',
     newItemText: ''
   },
+  trash: [],
   lists: {
     // store1: [
     //   {

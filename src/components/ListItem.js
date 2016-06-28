@@ -6,35 +6,47 @@ import * as actions from '../actions/listActions';
 class ListItem extends Component {
   constructor(props) {
     super(props);
-    this.deleteItem = this.deleteItem.bind(this);
+    this.deleteItemTemp = this.deleteItemTemp.bind(this);
+    this.undoDelete = this.undoDelete.bind(this);
   }
 
-  deleteItem(e) {
+  deleteItemTemp(e) {
     e.stopPropagation();
-    this.props.actions.deleteItem(this.props.itemIndex, this.props.activeList);
+    this.props.actions.deleteItemTemp(
+      this.props.itemIndex,
+      this.props.activeList,
+      this.props.item
+    );
+  }
+
+  undoDelete(e) {
+    e.stopPropagation();
+    this.props.actions.undoDelete();
   }
 
   render() {
     let iconClassName = 'glyphicon glyphicon-';
-
     this.props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
+    let isTrash = this.props.trash.indexOf(this.props.item) !== -1;
+
     return (
       <div>
         <div className="row">
-          <div
-            style={styles.itemStyle}
-            onClick={() => this.props.actions.toggleCheck(this.props.itemIndex, this.props.activeList)}
-            className="col-md-12">
+          <div style={isTrash ? styles.hidden : styles.inline}>
+            <div
+              style={styles.itemStyle}
+              onClick={() => this.props.actions.toggleCheck(this.props.itemIndex, this.props.activeList)}
+              className="col-md-12">
 
-            <span className={iconClassName}></span>
-            <span style={styles.itemTitleStyle}>{this.props.item}</span>
-            <button
-              onClick={this.deleteItem}
-              className="btn btn-danger btn-sm pull-right">
-                Remove Item
-            </button>
-
+              <span className={iconClassName}></span>
+              <span style={styles.itemTitleStyle}>{this.props.item}</span>
+            </div>
           </div>
+          <button
+            onClick={isTrash ? this.undoDelete : this.deleteItemTemp}
+            className={isTrash ? "btn btn-default btn-sm pull-right": "btn btn-danger btn-sm pull-right"}>
+              {isTrash ? 'UNDO' : 'Remove Item'}
+          </button>
         </div>
         <hr />
       </div>
@@ -48,12 +60,20 @@ let styles = {
   },
   itemStyle: {
     fontSize: '14pt'
+  },
+  hidden: {
+    display: 'none'
+  },
+  inline: {
+    display: 'inline-block',
+    float: 'left'
   }
 };
 
 let mapStateToProps = (state) => {
   return {
-    activeList: state.activeList
+    activeList: state.activeList,
+    trash: state.trash
   };
 };
 

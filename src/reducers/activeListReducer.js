@@ -8,6 +8,8 @@ export default function activeListReducer(state = initialState.activeList, actio
       return action.name;
     case 'DELETE_LIST':
       return '';
+    case 'USER_LOADED_SUCCESS':
+      return '';
     default:
       return state;
   }

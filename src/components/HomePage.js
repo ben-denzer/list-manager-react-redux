@@ -37,11 +37,15 @@ class HomePage extends React.Component {
   }
 
   addNewList() {
-    this.props.actions.addNewList(this.props.newListText);
+    if (this.props.newListText) {
+      this.props.actions.addNewList(this.props.newListText);
+    }
   }
 
   addNewItem() {
-    this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+    if (this.props.newItemText) {
+      this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+    }
   }
 
   render() {

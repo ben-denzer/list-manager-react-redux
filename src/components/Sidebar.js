@@ -27,8 +27,11 @@ const Sidebar = (props) => {
       <div style={styles.nameStyle}>{props.name}</div>
       <div style={styles.marginTop10} className="list-group">
         {eachList}
-        <input value={props.newListText} onChange={props.newListTextChange} />
-        <button className="btn btn-success" onClick={props.addNewList}>Add List</button>
+
+        <div style={styles.marginTop10}>
+          <input value={props.newListText} onChange={props.newListTextChange} /> &nbsp;
+          <button className="btn btn-success" onClick={props.addNewList}>Add List</button>
+        </div>
       </div>
     </div>
   );

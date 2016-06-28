@@ -1,14 +1,14 @@
 import * as types from '../constants/actionTypes';
-import listApi from '../api/mockApi.js';
+import listApi from '../api/mockApi';
 
-export function loadListSuccess(lists) {
-  return {type: types.LIST_LOADED, lists};
+export function loadUserSuccess(db) {
+  return {type: types.USER_LOADED_SUCCESS, db};
 }
 
-export function loadList() {
+export function loadUser() {
   return (dispatch) => {
-    return listApi.getLists().then((lists) => {
-      dispatch(loadListSuccess(lists));
+    return listApi.loadUser().then((db) => {
+      dispatch(loadUserSuccess(db));
     });
   };
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ListItem from './ListItem';
+import Modal from './Modal';
 
 const ListView = (props) => {
   let items = props.items || [];
@@ -24,7 +25,13 @@ const ListView = (props) => {
         <span style={styles.listNameStyle}>{props.activeList || 'No List Selected'}</span>
 
         <div style={props.activeList ? styles.floatRight : styles.hidden}>
-          <button onClick={() => props.deleteList()} className="btn btn-danger btn-sm">Delete List</button>
+          <button
+            data-toggle="modal"
+            data-target="#myModal"
+            className="btn btn-danger
+            btn-sm">
+            Delete List
+          </button>
         </div>
         <hr />
 
@@ -38,8 +45,12 @@ const ListView = (props) => {
           <input value={props.newItemText} onChange={props.newItemTextChange} />&nbsp;&nbsp;
           <button onClick={() => props.addNewItem()} className="btn btn-success">Add Item</button>
         </div>
+
+        <Modal activeList={props.activeList} deleteList={props.deleteList} />
       </div>
     </div>
+
+
   );
 };
 

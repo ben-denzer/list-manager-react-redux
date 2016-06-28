@@ -37,7 +37,7 @@ const myList = {
 };
 
 class ListApi {
-  static getLists() {
+  static loadUser() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(Object.assign([], myList));

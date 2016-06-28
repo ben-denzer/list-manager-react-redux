@@ -8,6 +8,9 @@ export default function listReducer(state = initialState.lists, action) {
   let itemName = action.itemName;
 
   switch(action.type) {
+    case 'USER_LOADED_SUCCESS':
+      return action.db.lists;
+
     case 'TOGGLE_CHECK':
     tempState[activeListName][itemIndex].finished = !tempState[activeListName][itemIndex].finished;
     tempState[activeListName] = tempState[activeListName].filter(a => a);

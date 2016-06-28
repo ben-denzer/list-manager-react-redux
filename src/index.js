@@ -8,7 +8,7 @@ import routes from './routes';
 import {Router, browserHistory} from 'react-router';
 import './styles/css/bootstrap.min.css';
 import './styles/css/shop-item.css';
-import {loadUser} from './actions/listActions';
+import {loadUser} from './actions/apiActions';
 
 let store = configureStore();
 store.dispatch(loadUser());

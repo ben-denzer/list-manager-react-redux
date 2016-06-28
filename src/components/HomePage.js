@@ -45,6 +45,16 @@ class HomePage extends React.Component {
   }
 
   render() {
+    // console.log('----------------------');
+    // console.log('name:', this.props.name);
+    // console.log('lists:', Object.keys(this.props.lists));
+    // console.log('activeList:', this.props.activeList);
+    // for (let i in this.props.items) {
+    //   console.log('items:', this.props.items[i]);
+    // }
+    // console.log('newItemText:', this.props.newItemText);
+    // console.log('newListText:', this.props.newListText);
+    // console.log('=======================');
     return (
       <div className="container">
         <div className="row">
@@ -70,7 +80,7 @@ class HomePage extends React.Component {
   }
 }
 
- let mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
   return {
     name: state.user,
     lists: Object.keys(state.lists),

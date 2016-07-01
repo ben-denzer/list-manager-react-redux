@@ -38,13 +38,23 @@ class HomePage extends React.Component {
 
   addNewList() {
     if (this.props.newListText) {
-      this.props.actions.addNewList(this.props.newListText);
+      if (this.props.lists.indexOf(this.props.newListText) === -1) {
+        this.props.actions.addNewList(this.props.newListText);
+      }
+      else {
+        alert('You already a list by that name');
+      }
     }
   }
 
   addNewItem() {
     if (this.props.newItemText) {
-      this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+      if (this.props.items.filter(a => a.item === this.props.newItemText).length) {
+        alert('You already have an item with that name');
+      }
+      else {
+        this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+      }
     }
   }
 
@@ -53,6 +63,7 @@ class HomePage extends React.Component {
     // console.log('name:', this.props.name);
     // console.log('lists:', Object.keys(this.props.lists));
     // console.log('activeList:', this.props.activeList);
+    // console.log('items', this.props.items);
     // for (let i in this.props.items) {
     //   console.log('items:', this.props.items[i]);
     // }
@@ -89,7 +100,7 @@ let mapStateToProps = (state) => {
     name: state.user,
     lists: Object.keys(state.lists),
     activeList: state.activeList,
-    items: state.lists[state.activeList],
+    items: state.lists[state.activeList] || [],
     newItemText: state.text.newItemText,
     newListText: state.text.newListText
   };

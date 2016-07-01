@@ -13,9 +13,8 @@ class ListItem extends Component {
   deleteItemTemp(e) {
     e.stopPropagation();
     this.props.actions.deleteItemTemp(
-      this.props.itemIndex,
-      this.props.activeList,
-      this.props.item
+      this.props.item,
+      this.props.activeList
     );
   }
 

@@ -1,7 +1,6 @@
 import initialState from './initialState';
 
 export default function trashReducer(state = initialState.trash, action) {
-  console.log(action);
   switch(action.type) {
     case 'DELETE_ITEM_TEMP':
       return [...state, action.itemName];

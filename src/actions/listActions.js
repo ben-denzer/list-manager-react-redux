@@ -24,19 +24,19 @@ export function addNewList(name) {
   return {type: types.ADD_NEW_LIST, name};
 }
 
-export function deleteItem(itemIndex, activeList) {
-  return {type: types.DELETE_ITEM, itemIndex, activeList};
+export function deleteItem(itemName, activeList) {
+  return {type: types.DELETE_ITEM, itemName, activeList};
 }
 
 export function undoDelete() {
-  clearTimeout(undoTimer);
+  clearTimeout(window.undoTimer);
   return {type: types.UNDO_DELETE};
 }
 
-export function deleteItemTemp(itemIndex, activeList, itemName) {
+export function deleteItemTemp(itemName, activeList) {
   return (dispatch) => {
     dispatch(putInTrash(itemName));
-    window.undoTimer = setTimeout(() => dispatch(deleteItem(itemIndex, activeList)), 4000);
+    window.undoTimer = setTimeout(() => dispatch(deleteItem(itemName, activeList)), 3000);
   };
 }
 

@@ -42,7 +42,7 @@ const ListView = (props) => {
         </div>
 
         <div style={!props.activeList ? styles.hidden : null}>
-          <input value={props.newItemText} onChange={props.newItemTextChange} />&nbsp;&nbsp;
+          <input value={props.newItemText} onChange={props.newItemTextChange} />
           <button onClick={() => props.addNewItem()} className="btn btn-success">Add Item</button>
         </div>
 

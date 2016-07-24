@@ -29,7 +29,7 @@ const Sidebar = (props) => {
         {eachList}
 
         <div style={styles.marginTop10}>
-          <input value={props.newListText} onChange={props.newListTextChange} /> &nbsp;
+          <input value={props.newListText} onChange={props.newListTextChange} />
           <button className="btn btn-success" onClick={props.addNewList}>Add List</button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 const myList = {
-  name: 'Ben',
+  name: '',
   lists: {
     walmart: [
       {

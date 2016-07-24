@@ -25,6 +25,7 @@
   "author": "Ben-Denzer",
   "license": "MIT",
   "dependencies": {
+    "express": "4.14.0",
     "object-assign": "4.1.0",
     "react": "15.0.2",
     "react-dom": "15.0.2",

@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import {addItem} from '../api/listApi';
 
 export function toggleCheck(itemIndex, activeList) {
   return {type: types.TOGGLE_CHECK, itemIndex, activeList};
@@ -44,6 +45,18 @@ function putInTrash(itemName) {
   return {type: types.DELETE_ITEM_TEMP, itemName};
 }
 
+function addItemToDB(item, list, comments, username, password) {
+    console.log('called');
+    return (dispatch) => {
+        addItem(item, list, comments, username, password).then(
+            (data) => console.log('success'),
+            (err) => console.error(err)
+        );
+    };
+}
+
 export function addNewItem(itemName, activeList) {
-  return {type: types.ADD_NEW_ITEM, itemName, activeList};
+    console.log('hit addNewItem');
+    addItemToDB(itemName, activeList, 'sdf', 'ben', 'qweruio')();
+    return {type: types.ADD_NEW_ITEM, itemName, activeList};
 }

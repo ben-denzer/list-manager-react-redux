@@ -28,17 +28,14 @@ const ListView = (props) => {
           <button
             data-toggle="modal"
             data-target="#myModal"
-            className="btn btn-danger
-            btn-sm">
+            className="btn btn-danger btn-sm">
             Delete List
           </button>
         </div>
         <hr />
 
         <div style={props.activeList ? !props.items.length ? styles.hidden : null : null}>
-
           {eachItem}
-
         </div>
 
         <div style={!props.activeList ? styles.hidden : null}>

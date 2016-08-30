@@ -1,42 +1,46 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
+import {changeUrl} from '../routes';
 
-const App = (props) => {
-  return (
-    <div>
-      <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div className="container">
-          <div className="navbar-header">
-            {/*<button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>*/}
-            <a className="navbar-brand" href="#">List Manager - Ben Denzer</a>
-          </div>
-          {/*<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <a href="#">Services</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </div>*/}
-        </div>
-      </nav>
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+    }
+    handleLoginClick() {
+        changeUrl('/login');
+    }
+    render() {
+        return (
+            <div>
+                <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div className="container">
+                        <div className="navbar-header">
+                            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                            </button>
+                            <a className="navbar-brand" href="#">List Manager - Ben Denzer</a>
+                        </div>
+                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul className="nav navbar-nav navbar-right">
+                                <li>
+                                    <a style={styles.a}onClick={this.handleLoginClick}>login / sign up</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-      {props.children}
-    </div>
-  );
-};
+                {this.props.children}
+             </div>
+        );
+    }
+}
 
-App.propTypes = {
-  children: PropTypes.object.isRequired
+let styles = {
+    a: {cursor: 'pointer'}
 };
 
 export default App;

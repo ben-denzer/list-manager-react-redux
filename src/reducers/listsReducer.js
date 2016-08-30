@@ -6,10 +6,10 @@ export default function listReducer(state = initialState.lists, action) {
   let name = action.name;
   let itemName = action.itemName;
   let tempState;
-  
+
   switch(action.type) {
-    case 'USER_LOADED_SUCCESS':
-      return action.db.lists;
+    case 'LOAD_USER_SUCCESS':
+      return Object.assign({}, action.lists);
 
     case 'TOGGLE_CHECK':
       tempState = Object.assign({}, state);
@@ -19,7 +19,7 @@ export default function listReducer(state = initialState.lists, action) {
 
     case 'ADD_NEW_ITEM':
       tempState = Object.assign({}, state);
-      tempState[activeListName].push({item: itemName, finished: false});
+      tempState[activeListName] = [...tempState[activeListName], {item: itemName, finished: false}];
       return tempState;
 
     case 'DELETE_ITEM':

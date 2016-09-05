@@ -48,13 +48,11 @@ class HomePage extends React.Component {
     }
 
     addNewItem() {
-        console.log('clicked');
         if (this.props.newItemText) {
             if (this.props.items.filter(a => a.item === this.props.newItemText).length) {
                 alert('You already have an item with that name');
             }
             else {
-                console.log('second');
                 this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
             }
         }
@@ -88,7 +86,7 @@ class HomePage extends React.Component {
 
 let mapStateToProps = (state) => {
 return {
-        name: state.user,
+        name: state.user.username,
         lists: Object.keys(state.lists),
         activeList: state.activeList,
         items: state.lists[state.activeList] || [],

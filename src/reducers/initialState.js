@@ -1,43 +1,20 @@
 export default {
-  activeList: '',
-  name: '',
-  text: {
-    newListText: '',
-    newItemText: ''
-  },
-  trash: [],
-  lists: {
-    // store1: [
-    //   {
-    //     item: 'fake1',
-    //     finished: false
-    //   },
-    //   {
-    //     item: 'fake2',
-    //     finished: true
-    //   },
-    //   {
-    //     item: 'fake3',
-    //     finished: false
-    //   }
-    // ],
-    // store2: [
-    //   {
-    //     item: 'fake1',
-    //     finished: false
-    //   },
-    //   {
-    //     item: 'fake2',
-    //     finished: true
-    //   },
-    //   {
-    //     item: 'fake3',
-    //     finished: false
-    //   },
-    //   {
-    //     item: 'fake4',
-    //     finished: false
-    //   }
-    // ]
-  }
+    activeList: '',
+    text: {
+        newListText: '',
+        newItemText: ''
+    },
+    trash: [],
+    user: {
+        username: null,
+        password: null,
+        loginError: false
+    },
+    lists: {},
+    form: {
+        signupUsernameVal: '',
+        signupPassword1Val: '',
+        signupPassword2Val: '',
+        error: null
+    }
 };

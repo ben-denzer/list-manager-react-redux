@@ -33,14 +33,12 @@ let signupDB = (username, password) => {
         req.setRequestHeader('Content-Type', 'application/json');
 
         req.onload = () => {
-            if (req.status >= 200 && req.status < 400) {
+           if (req.status >= 200 && req.status < 400) {
                 resolve(JSON.parse(req.responseText));
-            } else if (req.status === 401) {
-                reject({error: 'auth error', status: 'ok'});
-            } else if (req.status < 500) {
-                reject({error: 'request error', status: 'network error'});
+            } else if (req.status === 403) {
+                resolve({error: 'username is taken'});
             } else {
-                reject({error: 'server error', status: 'network error'});
+                req.status > 500 ? reject('500 err') : reject('400 err');
             }
         };
         req.onerror = () => {
@@ -52,7 +50,7 @@ let signupDB = (username, password) => {
     });
 };
 
-let addItemToDB = (item_name, list_name, comments) => {
+let addItemToDB = (token, item_name, list_name, comments) => {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
         req.open('POST', apiUrl + '/actions/addItem');
@@ -71,8 +69,7 @@ let addItemToDB = (item_name, list_name, comments) => {
         };
 
         let options = {
-            username: 'ben',
-            password: 'qweruio',
+            token,
             item_name,
             list_name,
             comments,
@@ -172,11 +169,13 @@ let checkUsernameDB = (username) => {
         req.setRequestHeader('Content-Type', 'application/json');
 
         req.onload = () => {
-            req.status >= 200 && req.status < 400 ?
-                resolve(JSON.parse(req.responseText)) :
-                req.status > 500 ?
-                    reject('500 err') :
-                    reject('400 err');
+            if (req.status >= 200 && req.status < 400) {
+                resolve(JSON.parse(req.responseText));
+            } else if (req.status === 403) {
+                resolve({error: 'username is taken'});
+            } else {
+                req.status > 500 ? reject('500 err') : reject('400 err');
+            }
         };
 
         req.onerror = () => {

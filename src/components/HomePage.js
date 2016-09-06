@@ -53,12 +53,13 @@ class HomePage extends React.Component {
                 alert('You already have an item with that name');
             }
             else {
-                this.props.actions.addNewItem(this.props.newItemText, this.props.activeList);
+                this.props.actions.addNewItem(this.props.token, this.props.newItemText, this.props.activeList);
             }
         }
     }
 
     render() {
+        console.log('token', this.props.token);
         return (
             <div className="container">
                 <div className="row">
@@ -87,6 +88,7 @@ class HomePage extends React.Component {
 let mapStateToProps = (state) => {
 return {
         name: state.user.username,
+        token: state.user.token,
         lists: Object.keys(state.lists),
         activeList: state.activeList,
         items: state.lists[state.activeList] || [],

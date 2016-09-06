@@ -7,17 +7,12 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.checkUsername = this.checkUsername.bind(this);
         this.verify = this.verify.bind(this);
         this.showError = this.showError.bind(this);
     }
     handleChange(e) {
-        if (this.props.error) this.checkUsername(this.props.signupUsernameVal);
+        //if (this.props.error) this.checkUsername(this.props.signupUsernameVal);
         this.props.actions.handleChange(e.target.value, e.target.id + 'Val');
-    }
-    checkUsername(val) {
-        console.log('called checkUsername');
-        this.props.actions.checkUsername(val);
     }
     verify() {
         let {signupUsernameVal, signupPassword1Val, signupPassword2Val} = this.props;
@@ -30,32 +25,45 @@ class Signup extends Component {
         console.log(err);
     }
     render() {
-        this.props.error ? console.log(this.props.error) : console.log('username ok');
+        this.props.usernameError ? console.log('errorrr') : console.log('username ok');
         return (
-            <div>
+            <div style={styles.form}>
                 <label>
-                    Username
-                    <input id="signupUsername"
+                    Username <input id="signupUsername"
+                        style={this.props.usernameError ? styles.inputError : styles.inputOk}
                         value={this.props.signupUsernameVal}
                         onChange={this.handleChange}
-                        onBlur={this.props.actions.checkUsername.bind(null, this.props.signupUsernameVal)}
                     />
                 </label>
+                <span style={this.props.usernameError ? styles.warning : styles.warningHidden}>
+                    Username is Taken
+                </span>
                 <label>
-                    Password
-                    <input id="signupPassword1"
+                    Password <input id="signupPassword1"
                         type="password"
+                        style={this.props.signupPassword1Val.length < 6 ? styles.inputError : styles.inputOk}
                         value={this.props.signupPassword1Val}
                         onChange={this.handleChange}
                     />
                 </label>
+                <span style={this.props.signupPassword1Val.length < 6 ? styles.warning : styles.warningHidden}>
+                    Must Be at Least 6 characters
+                </span>
                 <label>
-                    Re-Type Password
-                    <input id="signupPassword2"
+                    Re-Type Password <input id="signupPassword2"
                         type="password"
+                        style={this.props.signupPassword1Val === this.props.signupPassword2Val ?
+                            styles.inputOk :
+                            styles.inputError}
                         value={this.props.signupPassword2Val}
                         onChange={this.handleChange} />
                 </label>
+                <span style={this.props.signupPassword1Val !== this.props.signupPassword2Val ?
+                    styles.warning :
+                    styles.warningHidden}
+                >
+                    Passwords Do Not Match
+                </span>
                 <button className="btn btn-info"
                     onClick={this.verify}
                 >
@@ -66,12 +74,27 @@ class Signup extends Component {
     }
 }
 
+let styles = {
+    form: {
+        width: '50%',
+        minWidth: '350px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end'
+    },
+    inputError: {boxSizing: 'border-box', border: '2px solid red'},
+    inputOk: {boxSizing: 'border-box', border: '1px solid #444'},
+    warning: {color: 'red'},
+    warningHidden: {visibility: 'hidden'}
+};
+
 let mapStateToProps = (state) => {
+    console.log(state.form.error);
     return {
         signupUsernameVal: state.form.signupUsernameVal,
         signupPassword1Val: state.form.signupPassword1Val,
         signupPassword2Val: state.form.signupPassword2Val,
-        error: state.form.error
+        usernameError: state.form.error.usernameError
     }
 }
 

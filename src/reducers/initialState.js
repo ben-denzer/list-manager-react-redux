@@ -8,6 +8,7 @@ export default {
     user: {
         username: null,
         password: null,
+        token: null,
         loginError: false
     },
     lists: {},
@@ -15,6 +16,10 @@ export default {
         signupUsernameVal: '',
         signupPassword1Val: '',
         signupPassword2Val: '',
-        error: null
+        error: {
+            usernameError: null,
+            password1Error: null,
+            password2Error: null
+        }
     }
 };

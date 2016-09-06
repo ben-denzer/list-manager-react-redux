@@ -5,7 +5,7 @@ export default function userReducer(state = initialState.user, action) {
     case 'LOAD_USER_SUCCESS':
         return Object.assign({}, state, {
             username: action.username,
-            password: action.password,
+            token: action.token,
             authError: false
         });
     case 'AUTH_ERROR':
@@ -13,7 +13,7 @@ export default function userReducer(state = initialState.user, action) {
     case 'LOG_OUT':
         return {
             username: null,
-            password: null,
+            token: null,
             authError: false
         };
     default:

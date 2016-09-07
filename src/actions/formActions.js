@@ -33,16 +33,17 @@ export function checkUsername(username) {
     }
 }
 
-function signupSuccess(username, password) {
+function signupSuccess(username, token) {
+    console.log('in reducer', username, token);
     changeUrl('/');
-    return {type: types.LOAD_USER_SUCCESS, username, password};
+    return {type: types.LOAD_USER_SUCCESS, username, token, lists: {}};
 }
 
 export function signup(username, password) {
     return (dispatch) => {
         signupDB(username, password).then(
             (data) => {
-                data.error ? dispatch(usernameTaken()) : dispatch(signupSuccess(username, password));
+                data.error ? dispatch(usernameTaken()) : dispatch(signupSuccess(username, data.token));
             },
             (err) => console.error(err)
         );

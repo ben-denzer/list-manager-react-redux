@@ -79,7 +79,7 @@ let addItemToDB = (token, item_name, list_name, comments) => {
     });
 }
 
-let removeItemFromDB = (item_id) => {
+let removeItemFromDB = (token, item_id) => {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
         req.open('POST', apiUrl + '/actions/removeItem');
@@ -98,15 +98,14 @@ let removeItemFromDB = (item_id) => {
         };
 
         let options = {
+            token,
             item_id,
-            username: 'ben',
-            password: 'qweruio'
         };
         req.send(JSON.stringify(options));
     });
 }
 
-export function toggleCheckDB(item_id, newStatus) {
+export function toggleCheckDB(token, item_id, newStatus) {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
         req.open('POST', apiUrl + '/actions/toggleCheck');
@@ -125,16 +124,15 @@ export function toggleCheckDB(item_id, newStatus) {
         }
 
         let options = {
+            token,
             item_id,
             newStatus,
-            username: 'ben',
-            password: 'qweruio'
         };
         req.send(JSON.stringify(options));
     });
 }
 
-let deleteListDB = (activeList) => {
+let deleteListDB = (token, activeList) => {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
         req.open('POST', apiUrl + '/actions/removeList');
@@ -153,9 +151,8 @@ let deleteListDB = (activeList) => {
         };
 
         let options = {
-            activeList,
-            username: 'ben',
-            password: 'qweruio'
+            token,
+            activeList
         };
         req.send(JSON.stringify(options));
     });

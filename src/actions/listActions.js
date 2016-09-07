@@ -1,16 +1,16 @@
 import * as types from '../constants/actionTypes';
 import {addItemToDB, removeItemFromDB, toggleCheckDB, deleteListDB} from '../api/listApi';
 
-function toggleCheckAPI(item_id, oldStatus) {
+function toggleCheckAPI(token, item_id, oldStatus) {
     let newStatus = !oldStatus;
-    toggleCheckDB(item_id, newStatus).then(
+    toggleCheckDB(token, item_id, newStatus).then(
         (data) => null,
         (err) => console.error('error in promise toggleCheckDB')
     );
 }
 
-export function toggleCheck(item_id, oldStatus, itemIndex, activeList) {
-    toggleCheckAPI(item_id, oldStatus);
+export function toggleCheck(token, item_id, oldStatus, itemIndex, activeList) {
+    toggleCheckAPI(token, item_id, oldStatus);
     return {type: types.TOGGLE_CHECK, itemIndex, activeList};
 }
 
@@ -22,9 +22,9 @@ function deleteListSuccess(activeList, dispatch) {
     dispatch({type: types.DELETE_LIST, activeList});
 }
 
-export function deleteList(activeList) {
+export function deleteList(token, activeList) {
     return function(dispatch) {
-        deleteListDB(activeList).then(
+        deleteListDB(token, activeList).then(
             (data) => deleteListSuccess(activeList, dispatch),
             (err) => console.error(err)
         );
@@ -47,9 +47,9 @@ function deleteItemSuccess(itemName, activeList) {
     return {type: types.DELETE_ITEM, itemName, activeList};
 }
 
-function deleteItem(itemName, activeList, item_id) {
+function deleteItem(token, itemName, activeList, item_id) {
     return (dispatch) => {
-        removeItemFromDB(item_id).then(
+        removeItemFromDB(token, item_id).then(
             (data) => {
                 dispatch(deleteItemSuccess(itemName, activeList));
             },
@@ -63,10 +63,10 @@ export function undoDelete() {
     return {type: types.UNDO_DELETE};
 }
 
-export function deleteItemTemp(itemName, activeList, item_id) {
+export function deleteItemTemp(token, itemName, activeList, item_id) {
     return (dispatch) => {
         dispatch(putInTrash(itemName));
-        window.undoTimer = setTimeout(() => deleteItem(itemName, activeList, item_id)(dispatch), 3000);
+        window.undoTimer = setTimeout(() => dispatch(deleteItem(token, itemName, activeList, item_id)), 3000);
     };
 }
 

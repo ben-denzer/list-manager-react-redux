@@ -23,19 +23,15 @@ class HomePage extends React.Component {
         }
         this.props.actions.changeActive(newActive);
     }
-
     deleteList() {
-        this.props.actions.deleteList(this.props.activeList);
+        this.props.actions.deleteList(this.props.token, this.props.activeList);
     }
-
     newItemTextChange(e) {
         this.props.actions.newItemTextChange(e.target.value);
     }
-
     newListTextChange(e) {
         this.props.actions.newListTextChange(e.target.value);
     }
-
     addNewList() {
         if (this.props.newListText) {
             if (this.props.lists.indexOf(this.props.newListText) === -1) {
@@ -46,7 +42,6 @@ class HomePage extends React.Component {
             }
         }
     }
-
     addNewItem() {
         if (this.props.newItemText) {
             if (this.props.items.filter(a => a.item === this.props.newItemText).length) {
@@ -57,7 +52,6 @@ class HomePage extends React.Component {
             }
         }
     }
-
     render() {
         console.log('token', this.props.token);
         return (

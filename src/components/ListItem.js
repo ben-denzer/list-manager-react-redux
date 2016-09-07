@@ -8,22 +8,30 @@ class ListItem extends Component {
         super(props);
         this.deleteItemTemp = this.deleteItemTemp.bind(this);
         this.undoDelete = this.undoDelete.bind(this);
+        this.toggleCheck = this.toggleCheck.bind(this);
     }
-
     deleteItemTemp(e) {
         e.stopPropagation();
         this.props.actions.deleteItemTemp(
+            this.props.token,
             this.props.item,
             this.props.activeList,
             this.props.item_id
         );
     }
-
     undoDelete(e) {
         e.stopPropagation();
         this.props.actions.undoDelete();
     }
-
+    toggleCheck() {
+        this.props.actions.toggleCheck(
+            this.props.token,
+            this.props.item_id,
+            this.props.checked,
+            this.props.itemIndex,
+            this.props.activeList
+        );
+    }
     render() {
         let iconClassName = 'glyphicon glyphicon-';
         this.props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
@@ -35,7 +43,7 @@ class ListItem extends Component {
                     <div style={isTrash ? styles.hidden : styles.inline}>
                         <div
                             style={styles.itemStyle}
-                            onClick={this.props.actions.toggleCheck.bind(null, this.props.item_id, this.props.checked, this.props.itemIndex, this.props.activeList)}
+                            onClick={this.toggleCheck}
                             className="col-md-12">
 
                             <span className={iconClassName}></span>
@@ -72,6 +80,7 @@ let styles = {
 
 let mapStateToProps = (state) => {
     return {
+        token: state.user.token,
         activeList: state.activeList,
         trash: state.trash
     };

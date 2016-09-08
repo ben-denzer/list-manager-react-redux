@@ -22,9 +22,8 @@ function usernameOk() {
 }
 
 export function checkUsername(username) {
-    console.log('checking');
     return (dispatch) => {
-        checkUsernameDB(username).then(
+        checkUsernameDB({username}).then(
             (data) => {
                 (data.success) ? dispatch(usernameOk()) : dispatch(usernameTaken());
             },
@@ -41,7 +40,7 @@ function signupSuccess(username, token) {
 
 export function signup(username, password) {
     return (dispatch) => {
-        signupDB(username, password).then(
+        signupDB({username, password}).then(
             (data) => {
                 data.error ? dispatch(usernameTaken()) : dispatch(signupSuccess(username, data.token));
             },

@@ -3,7 +3,7 @@ import {addItemToDB, removeItemFromDB, toggleCheckDB, deleteListDB} from '../api
 
 function toggleCheckAPI(token, item_id, oldStatus) {
     let newStatus = !oldStatus;
-    toggleCheckDB(token, item_id, newStatus).then(
+    toggleCheckDB({token, item_id, newStatus}).then(
         (data) => null,
         (err) => console.error('error in promise toggleCheckDB')
     );
@@ -24,7 +24,7 @@ function deleteListSuccess(activeList, dispatch) {
 
 export function deleteList(token, activeList) {
     return function(dispatch) {
-        deleteListDB(token, activeList).then(
+        deleteListDB({token, activeList}).then(
             (data) => deleteListSuccess(activeList, dispatch),
             (err) => console.error(err)
         );
@@ -49,7 +49,7 @@ function deleteItemSuccess(itemName, activeList) {
 
 function deleteItem(token, itemName, activeList, item_id) {
     return (dispatch) => {
-        removeItemFromDB(token, item_id).then(
+        removeItemFromDB({token, item_id}).then(
             (data) => {
                 dispatch(deleteItemSuccess(itemName, activeList));
             },
@@ -74,11 +74,16 @@ function putInTrash(itemName) {
     return {type: types.DELETE_ITEM_TEMP, itemName};
 }
 
-export function addNewItem(token, itemName, activeList) {
+export function addNewItem(token, itemName, activeList, comments) {
     return (dispatch) => {
-        addItemToDB(token, itemName, activeList).then(
+        addItemToDB({token, item_name: itemName, list_name: activeList, comments: '', checked: false}).then(
             (data) => {
-              dispatch({type: types.ADD_NEW_ITEM, itemName, activeList, itemId: data.item_id});
+                dispatch({
+                    type: types.ADD_NEW_ITEM,
+                    itemName,
+                    activeList,
+                    itemId: data.item_id
+                });
             },
             (err) => console.error(err)
         );

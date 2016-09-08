@@ -20,6 +20,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.login = this.login.bind(this);
         this.state = {
             userVal: '',
             pwVal: ''
@@ -29,6 +30,12 @@ class Login extends Component {
         e.which === 13 || e.keycode === 13 ?
             this.props.loadUser(this.state.userVal, this.state.pwVal) :
             this.setState({[e.target.id]: e.target.value});
+    }
+    login() {
+        this.props.loadUser({
+            username: this.state.userVal,
+            password: this.state.pwVal
+        });
     }
     render() {
         return (
@@ -51,7 +58,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                     />
                 </label>
-                <button onClick={this.props.loadUser.bind(null, this.state.userVal, this.state.pwVal)}>Log In</button>
+                <button onClick={this.login}>Log In</button>
                 <div
                     className="alert alert-danger"
                     style={this.props.authError ? styles.alert.show : styles.alert.hidden}

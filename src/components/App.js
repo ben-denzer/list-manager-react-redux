@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {logout} from '../actions/apiActions';
 
 let App = (props) => {
-    console.log(props.user);
     return (
         <div>
             <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">

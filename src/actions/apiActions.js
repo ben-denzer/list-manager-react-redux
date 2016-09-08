@@ -15,11 +15,11 @@ function connectionError() {
     return {type: types.CONNECTION_ERROR};
 }
 
-export function loadUser(username, password) {
+export function loadUser(options) {
     return (dispatch) => {
-        return actions.loadUserData(username, password).then(
-            (data) => dispatch(loadUserSuccess(username, data.token, data.lists))
-            ).catch((err) => err.error === 'auth error' ? dispatch(authError()) : console.log('err in loaduser promise')
+        return actions.loadUserData(options).then(
+            (data) => dispatch(loadUserSuccess(options.username, data.token, data.lists))
+            ).catch((err) => err.error === 'auth error' ? dispatch(authError()) : console.log(err)
         );
     };
 }

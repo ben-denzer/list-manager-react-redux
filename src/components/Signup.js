@@ -11,7 +11,6 @@ class Signup extends Component {
         this.showError = this.showError.bind(this);
     }
     handleChange(e) {
-        //if (this.props.error) this.checkUsername(this.props.signupUsernameVal);
         this.props.actions.handleChange(e.target.value, e.target.id + 'Val');
     }
     verify() {
@@ -19,7 +18,8 @@ class Signup extends Component {
         if (signupUsernameVal.length <= 2) return this.showError('Username must be at least 3 characters long');
         if (signupPassword1Val.length <6) return this.showError('Password must be at least 6 characters');
         if (signupPassword1Val !== signupPassword2Val) return this.showError('Passwords do not match');
-        this.props.actions.signup(signupUsernameVal, signupPassword1Val);
+
+        this.props.actions.signup(this.props.signupUsernameVal, this.props.signupPassword1Val);
     }
     showError(err) {
         console.log(err);

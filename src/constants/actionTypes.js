@@ -1,3 +1,5 @@
+export const API_ERROR              = 'API_ERROR';
+export const API_SUCCESS            = 'API_SUCCESS';
 export const ADD_NEW_ITEM           = 'ADD_NEW_ITEM';
 export const ADD_NEW_LIST           = 'ADD_NEW_LIST';
 export const AUTH_ERROR             = 'AUTH_ERROR';

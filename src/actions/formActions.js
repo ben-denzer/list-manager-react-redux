@@ -27,13 +27,14 @@ export function checkUsername(username) {
             (data) => {
                 (data.success) ? dispatch(usernameOk()) : dispatch(usernameTaken());
             },
-            (err) => console.error('error in checkUsername')
+            (err) => dispatch({type: types.API_ERROR, err})
         );
     }
 }
 
 function signupSuccess(username, token) {
-    console.log('in reducer', username, token);
+    window.localStorage.setItem('username', username);
+    window.localStorage.setItem('token', token);
     changeUrl('/');
     return {type: types.LOAD_USER_SUCCESS, username, token, lists: {}};
 }
@@ -44,7 +45,7 @@ export function signup(username, password) {
             (data) => {
                 data.error ? dispatch(usernameTaken()) : dispatch(signupSuccess(username, data.token));
             },
-            (err) => console.error(err)
+            (err) => dispatch({type: types.API_ERROR, err})
         );
     }
 }

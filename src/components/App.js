@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {logout} from '../actions/apiActions';
 
 let App = (props) => {
+    let error = Object.keys(props.error).map(a => props.error[a]);
     return (
         <div>
             <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -38,6 +39,11 @@ let App = (props) => {
                     </div>
                 </div>
             </nav>
+            <div className="alert alert-danger"
+                style={error.length ? styles.visible : styles.hidden}
+            >
+                {error[0]}
+            </div>
 
             {props.children}
         </div>
@@ -46,12 +52,14 @@ let App = (props) => {
 
 let styles = {
     a: {cursor: 'pointer'},
-    hidden: {display: 'none'}
+    hidden: {display: 'none'},
+    visible: {display: 'block', textAlign: 'center'}
 };
 
 let mapStateToProps = (state) => {
     return {
-        user: state.user.username
+        user: state.user.username,
+        error: state.error
     };
 };
 

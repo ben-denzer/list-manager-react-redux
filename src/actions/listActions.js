@@ -1,46 +1,29 @@
 import * as types from '../constants/actionTypes';
 import {addItemToDB, removeItemFromDB, toggleCheckDB, deleteListDB} from '../api/listApi';
 
-function toggleCheckAPI(token, item_id, oldStatus) {
-    let newStatus = !oldStatus;
-    toggleCheckDB({token, item_id, newStatus}).then(
-        (data) => null,
-        (err) => console.error('error in promise toggleCheckDB')
-    );
-}
-
-export function toggleCheck(token, item_id, oldStatus, itemIndex, activeList) {
-    toggleCheckAPI(token, item_id, oldStatus);
-    return {type: types.TOGGLE_CHECK, itemIndex, activeList};
-}
-
-export function changeActive(newActive) {
-    return {type: types.CHANGE_ACTIVE, newActive};
-}
-
-function deleteListSuccess(activeList, dispatch) {
-    dispatch({type: types.DELETE_LIST, activeList});
-}
-
-export function deleteList(token, activeList) {
-    return function(dispatch) {
-        deleteListDB({token, activeList}).then(
-            (data) => deleteListSuccess(activeList, dispatch),
-            (err) => console.error(err)
+export function addNewItem(token, itemName, activeList, comments) {
+    return (dispatch) => {
+        addItemToDB({token, item_name: itemName, list_name: activeList, comments: '', checked: false}).then(
+            (data) => {
+                dispatch({
+                    type: types.ADD_NEW_ITEM,
+                    itemName,
+                    activeList,
+                    itemId: data.item_id
+                });
+                dispatch({type: types.API_SUCCESS});
+            },
+            (err) => dispatch({type: types.API_ERROR, err})
         );
     };
 }
 
-export function newItemTextChange(currentText) {
-    return {type: types.NEW_ITEM_TEXT_CHANGE, currentText};
-}
-
-export function newListTextChange(currentText) {
-    return {type: types.NEW_LIST_TEXT_CHANGE, currentText};
-}
-
 export function addNewList(name) {
     return {type: types.ADD_NEW_LIST, name};
+}
+
+export function changeActive(newActive) {
+    return {type: types.CHANGE_ACTIVE, newActive};
 }
 
 function deleteItemSuccess(itemName, activeList) {
@@ -53,14 +36,9 @@ function deleteItem(token, itemName, activeList, item_id) {
             (data) => {
                 dispatch(deleteItemSuccess(itemName, activeList));
             },
-            (err) => console.error(err)
+            (err) => dispatch({type: types.API_ERROR, err})
         );
     };
-}
-
-export function undoDelete() {
-    clearTimeout(window.undoTimer);
-    return {type: types.UNDO_DELETE};
 }
 
 export function deleteItemTemp(token, itemName, activeList, item_id) {
@@ -70,22 +48,47 @@ export function deleteItemTemp(token, itemName, activeList, item_id) {
     };
 }
 
+function deleteListSuccess(activeList, dispatch) {
+    dispatch({type: types.DELETE_LIST, activeList});
+}
+
+export function deleteList(token, activeList) {
+    return function(dispatch) {
+        deleteListDB({token, activeList}).then(
+            (data) => deleteListSuccess(activeList, dispatch),
+            (err) => dispatch({type: types.API_ERROR, err})
+        );
+    };
+}
+
+export function newItemTextChange(currentText) {
+    return {type: types.NEW_ITEM_TEXT_CHANGE, currentText};
+}
+
+export function newListTextChange(currentText) {
+    return {type: types.NEW_LIST_TEXT_CHANGE, currentText};
+}
+
 function putInTrash(itemName) {
     return {type: types.DELETE_ITEM_TEMP, itemName};
 }
 
-export function addNewItem(token, itemName, activeList, comments) {
+function toggleCheckAPI(token, item_id, oldStatus, dispatch) {
+    let newStatus = !oldStatus;
+    toggleCheckDB({token, item_id, newStatus}).then(
+        () => null,
+        (err) => dispatch({type: types.API_ERROR, err})
+    );
+}
+
+export function toggleCheck(token, item_id, oldStatus, itemIndex, activeList) {
     return (dispatch) => {
-        addItemToDB({token, item_name: itemName, list_name: activeList, comments: '', checked: false}).then(
-            (data) => {
-                dispatch({
-                    type: types.ADD_NEW_ITEM,
-                    itemName,
-                    activeList,
-                    itemId: data.item_id
-                });
-            },
-            (err) => console.error(err)
-        );
-    };
+        dispatch({type: types.TOGGLE_CHECK, itemIndex, activeList});
+        toggleCheckAPI(token, item_id, oldStatus, dispatch);
+    }
+}
+
+export function undoDelete() {
+    clearTimeout(window.undoTimer);
+    return {type: types.UNDO_DELETE};
 }

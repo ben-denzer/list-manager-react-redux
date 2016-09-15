@@ -8,17 +8,19 @@ const apiPromise = (options, path) => {
             if (req.status >= 200 && req.status < 400) {
                 resolve(JSON.parse(req.responseText));
             } else if (req.status === 401) {
-                reject({error: 'auth error', status: 'ok'});
+                reject({error: '401', status: 'Invalid Username or Password'});
+            } else if (req.status === 403) {
+                reject({error: '403', status: 'expired token'});
             } else if (req.status < 500) {
-                reject({error: 'request error', status: 'network error'});
+                reject({error: '400', status: 'Network Error, Please Try Again'});
             } else {
-                reject({error: 'server error', status: 'network error'});
+                reject({error: '500', status: 'Server Error'});
             }
         };
         req.onerror = () => {
-            reject({error: 'onError called', status: 'network error'});
+            reject({error: 'onError called', status: 'Network Error, Please Try Again'});
         };
-
+        console.log('in promise', options);
         req.send(JSON.stringify(options));
     });
 };

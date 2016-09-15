@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/listActions';
+import {loginWithToken} from '../actions/apiActions';
 import Sidebar from './Sidebar';
 import ListView from './ListView';
 
@@ -16,12 +17,21 @@ class HomePage extends React.Component {
         this.addNewList = this.addNewList.bind(this);
         this.addNewItem = this.addNewItem.bind(this);
     }
-
     changeActive(newActive) {
         if (newActive === this.props.activeList) {
             return;
         }
         this.props.actions.changeActive(newActive);
+    }
+    componentWillMount() {
+        if (!this.props.name) {
+            const username = window.localStorage.getItem('username');
+            const token = window.localStorage.getItem('token');
+            if (username && token) {
+                console.log('in willMoutn', token);
+                this.props.loginWithToken(username, token);
+            }
+        }
     }
     deleteList() {
         this.props.actions.deleteList(this.props.token, this.props.activeList);
@@ -94,6 +104,9 @@ return {
     };
 };
 
-let mapDispatchToProps = dispatch => ({actions: bindActionCreators(actions, dispatch)});
+let mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    loginWithToken: bindActionCreators(loginWithToken, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

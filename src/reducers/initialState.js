@@ -21,5 +21,6 @@ export default {
             password1Error: null,
             password2Error: null
         }
-    }
+    },
+    error: {}
 };

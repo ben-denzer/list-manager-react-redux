@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React from 'react';
 import {changeUrl} from '../routes';
 import {connect} from 'react-redux';
 import {logout} from '../actions/apiActions';
@@ -66,7 +66,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         logout: () => dispatch(logout())
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

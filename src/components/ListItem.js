@@ -21,7 +21,7 @@ class ListItem extends Component {
     }
     undoDelete(e) {
         e.stopPropagation();
-        this.props.actions.undoDelete();
+        this.props.actions.undoDelete(this.props.item);
     }
     toggleCheck() {
         this.props.actions.toggleCheck(

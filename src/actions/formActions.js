@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import {signupDB, checkUsernameDB} from '../api/listApi'
+import {signupDB, checkUsernameDB} from '../api/listApi';
 import {changeUrl} from '../routes';
 
 export function handleChange(val, id) {
@@ -8,16 +8,14 @@ export function handleChange(val, id) {
             dispatch(checkUsername(val));
         }
         dispatch({type: types.HANDLE_CHANGE, val, id});
-    }
+    };
 }
 
 function usernameTaken() {
-    console.log('username taken');
     return {type: types.USERNAME_TAKEN};
 }
 
 function usernameOk() {
-    console.log('username ok');
     return {type: types.USERNAME_OK};
 }
 
@@ -29,7 +27,7 @@ export function checkUsername(username) {
             },
             (err) => dispatch({type: types.API_ERROR, err})
         );
-    }
+    };
 }
 
 function signupSuccess(username, token) {
@@ -47,5 +45,5 @@ export function signup(username, password) {
             },
             (err) => dispatch({type: types.API_ERROR, err})
         );
-    }
+    };
 }

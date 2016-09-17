@@ -5,6 +5,17 @@ import Modal from './Modal';
 const ListView = (props) => {
     let items = props.items || [];
     let eachItem = [];
+    // -------------- Screwed myself using itemIndex - FIX
+    // let eachItem = items.map(a => {
+    //     return (
+    //         <ListItem
+    //             key={a.item}
+    //             item={a.item}
+    //             checked={a.checked}
+    //             item_id={a.item_id}
+    //         />
+    //     );
+    // });
 
     for (let i = 0; i < items.length; i++) {
         if (items[i]) {
@@ -41,7 +52,11 @@ const ListView = (props) => {
                 </div>
 
                 <div style={!props.activeList ? styles.hidden : null}>
-                    <input value={props.newItemText} onChange={props.newItemTextChange} />
+                    <input
+                        value={props.newItemText}
+                        onKeyUp={props.newItemTextChange}
+                        onChange={props.newItemTextChange}
+                    />
                     <button onClick={() => props.addNewItem()} className="btn btn-success">Add Item</button>
                 </div>
 

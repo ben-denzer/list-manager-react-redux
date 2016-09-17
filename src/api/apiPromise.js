@@ -20,7 +20,6 @@ const apiPromise = (options, path) => {
         req.onerror = () => {
             reject({error: 'onError called', status: 'Network Error, Please Try Again'});
         };
-        console.log('in promise', options);
         req.send(JSON.stringify(options));
     });
 };

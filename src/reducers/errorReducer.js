@@ -2,7 +2,6 @@ import initialState from './initialState';
 import {browserHistory} from 'react-router';
 
 export default function errorReducer(state = initialState.error, action) {
-    console.log(action);
     switch(action.type) {
         case 'API_ERROR':
             if (action.err.error === '403') browserHistory.push('login');

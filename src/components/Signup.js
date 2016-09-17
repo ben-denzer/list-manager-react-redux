@@ -25,7 +25,6 @@ class Signup extends Component {
         console.log(err);
     }
     render() {
-        this.props.usernameError ? console.log('errorrr') : console.log('username ok');
         return (
             <div style={styles.form}>
                 <label>
@@ -89,14 +88,13 @@ let styles = {
 };
 
 let mapStateToProps = (state) => {
-    console.log(state.form.error);
     return {
         signupUsernameVal: state.form.signupUsernameVal,
         signupPassword1Val: state.form.signupPassword1Val,
         signupPassword2Val: state.form.signupPassword2Val,
         usernameError: state.form.error.usernameError
-    }
-}
+    };
+};
 
 let mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(actions, dispatch)};

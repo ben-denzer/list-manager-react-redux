@@ -11,8 +11,11 @@ export default function listReducer(state = initialState.lists, action) {
         case 'LOAD_USER_SUCCESS':
             return Object.assign({}, action.lists);
         case 'TOGGLE_CHECK':
-            let checked = state[activeListName][itemIndex].checked;
-            tempState = Object.assign({}, state[activeListName][itemIndex], {checked: !checked});
+            tempState = Object.assign(
+                {},
+                state[activeListName][itemIndex],
+                {checked: !state[activeListName][itemIndex].checked}
+            );
             return Object.assign(
                 {},
                 state,

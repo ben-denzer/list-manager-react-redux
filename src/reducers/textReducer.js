@@ -11,7 +11,7 @@ export default function newItemReducer(state = initialState.text, action) {
         case 'ADD_NEW_LIST':
             return Object.assign({}, state, {newListText: ''});
         case 'LOG_OUT':
-            return {newListText: '', newItemText: ''}
+            return {newListText: '', newItemText: ''};
         default:
             return state;
     }

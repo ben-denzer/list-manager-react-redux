@@ -1,9 +1,9 @@
 import * as types from '../constants/actionTypes';
 import {addItemToDB, removeItemFromDB, toggleCheckDB, deleteListDB} from '../api/listApi';
 
-export function addNewItem(token, itemName, activeList, comments) {
+export function addNewItem(token, itemName, activeList) {
     return (dispatch) => {
-        addItemToDB({token, item_name: itemName, list_name: activeList, comments: '', checked: false}).then(
+        addItemToDB({token, item_name: itemName, list_name: activeList, checked: false}).then(
             (data) => {
                 dispatch({
                     type: types.ADD_NEW_ITEM,
@@ -33,7 +33,7 @@ function deleteItemSuccess(itemName, activeList) {
 function deleteItem(token, itemName, activeList, item_id) {
     return (dispatch) => {
         removeItemFromDB({token, item_id}).then(
-            (data) => {
+            () => {
                 dispatch(deleteItemSuccess(itemName, activeList));
             },
             (err) => dispatch({type: types.API_ERROR, err})
@@ -55,7 +55,7 @@ function deleteListSuccess(activeList, dispatch) {
 export function deleteList(token, activeList) {
     return function(dispatch) {
         deleteListDB({token, activeList}).then(
-            (data) => deleteListSuccess(activeList, dispatch),
+            () => deleteListSuccess(activeList, dispatch),
             (err) => dispatch({type: types.API_ERROR, err})
         );
     };
@@ -85,10 +85,10 @@ export function toggleCheck(token, item_id, oldStatus, itemIndex, activeList) {
     return (dispatch) => {
         dispatch({type: types.TOGGLE_CHECK, itemIndex, activeList});
         toggleCheckAPI(token, item_id, oldStatus, dispatch);
-    }
+    };
 }
 
-export function undoDelete() {
+export function undoDelete(itemName) {
     clearTimeout(window.undoTimer);
-    return {type: types.UNDO_DELETE};
+    return {type: types.UNDO_DELETE, itemName};
 }

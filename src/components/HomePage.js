@@ -17,30 +17,34 @@ class HomePage extends React.Component {
         this.addNewList = this.addNewList.bind(this);
         this.addNewItem = this.addNewItem.bind(this);
     }
+    componentWillMount() {
+        if (!this.props.name) {
+            const username = window.localStorage.getItem('username');
+            const token = window.localStorage.getItem('token');
+            if (username && token) {
+                this.props.loginWithToken(username, token);
+            }
+        }
+    }
     changeActive(newActive) {
         if (newActive === this.props.activeList) {
             return;
         }
         this.props.actions.changeActive(newActive);
     }
-    componentWillMount() {
-        if (!this.props.name) {
-            const username = window.localStorage.getItem('username');
-            const token = window.localStorage.getItem('token');
-            if (username && token) {
-                console.log('in willMoutn', token);
-                this.props.loginWithToken(username, token);
-            }
-        }
-    }
     deleteList() {
         this.props.actions.deleteList(this.props.token, this.props.activeList);
     }
     newItemTextChange(e) {
-        this.props.actions.newItemTextChange(e.target.value);
+        e.which === 13 || e.keycode === 13 ?
+            this.addNewItem() :
+            this.props.actions.newItemTextChange(e.target.value);
     }
     newListTextChange(e) {
-        this.props.actions.newListTextChange(e.target.value);
+        e.persist();
+        e.which === 13 || e.keycode === 13 ?
+            this.addNewList() :
+            this.props.actions.newListTextChange(e.target.value);
     }
     addNewList() {
         if (this.props.newListText) {

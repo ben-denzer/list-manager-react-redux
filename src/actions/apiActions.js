@@ -19,13 +19,12 @@ export function loadUser(options) {
 }
 
 export function loginWithToken(username, token) {
-    console.log('in apiActions', token);
     return (dispatch) => {
         return actions.loginWithToken({token}).then(
             (data) => dispatch(loadUserSuccess(username, token, data.lists)),
             (err) => dispatch({type: types.API_ERROR, err})
         );
-    }
+    };
 }
 
 export function logout() {

@@ -7,7 +7,7 @@ import Signup from './components/Signup';
 
 export function changeUrl(url) {
     return browserHistory.push(url);
-};
+}
 
 export default (
     <Route path="/" component={App}>

@@ -6,8 +6,7 @@ export default function trashReducer(state = initialState.trash, action) {
             return [...state, action.itemName];
         case 'UNDO_DELETE':
             return state.filter(a => {
-              console.log('state', state, 'a', a, 'action.itemName', action.itemName);
-              return a !== action.itemName;
+                return a !== action.itemName;
             });
         case 'DELETE_ITEM':
             if (state.length > 1) {

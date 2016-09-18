@@ -11,7 +11,11 @@ class Signup extends Component {
         this.showError = this.showError.bind(this);
     }
     handleChange(e) {
-        this.props.actions.handleChange(e.target.value, e.target.id + 'Val');
+        if (e.which === 13 || e.keycode === 13) {
+            this.verify();
+        } else {
+            this.props.actions.handleChange(e.target.value, e.target.id + 'Val');
+        }
     }
     verify() {
         let {signupUsernameVal, signupPassword1Val, signupPassword2Val} = this.props;
@@ -32,6 +36,7 @@ class Signup extends Component {
                         style={this.props.usernameError ? styles.inputError : styles.inputOk}
                         value={this.props.signupUsernameVal}
                         onChange={this.handleChange}
+                        onKeyUp={this.handleChange}
                     />
                 </label>
                 <span style={this.props.usernameError ? styles.warning : styles.warningHidden}>
@@ -43,6 +48,7 @@ class Signup extends Component {
                         style={this.props.signupPassword1Val.length < 6 ? styles.inputError : styles.inputOk}
                         value={this.props.signupPassword1Val}
                         onChange={this.handleChange}
+                        onKeyUp={this.handleChange}
                     />
                 </label>
                 <span style={this.props.signupPassword1Val.length < 6 ? styles.warning : styles.warningHidden}>
@@ -55,7 +61,9 @@ class Signup extends Component {
                             styles.inputOk :
                             styles.inputError}
                         value={this.props.signupPassword2Val}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                        onKeyUp={this.handleChange}
+                    />
                 </label>
                 <span style={this.props.signupPassword1Val !== this.props.signupPassword2Val ?
                     styles.warning :

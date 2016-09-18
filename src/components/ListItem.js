@@ -36,7 +36,6 @@ class ListItem extends Component {
         let iconClassName = 'glyphicon glyphicon-';
         this.props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
         let isTrash = this.props.trash.indexOf(this.props.item) !== -1;
-
         return (
             <div>
                 <div className="row">

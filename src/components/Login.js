@@ -27,9 +27,11 @@ class Login extends Component {
         };
     }
     handleChange(e) {
-        e.which === 13 || e.keycode === 13 ?
-            this.props.loadUser(this.state.userVal, this.state.pwVal) :
+        if (e.which === 13 || e.keycode === 13) {
+            this.login();
+        } else {
             this.setState({[e.target.id]: e.target.value});
+        }
     }
     login() {
         this.props.loadUser({
@@ -47,6 +49,7 @@ class Login extends Component {
                         id="userVal"
                         value={this.state.userVal}
                         onChange={this.handleChange}
+                        onKeyUp={this.handleChange}
                     />
                 </label>
                 <label>
@@ -56,6 +59,7 @@ class Login extends Component {
                         type="password"
                         value={this.state.pwVal}
                         onChange={this.handleChange}
+                        onKeyUp={this.handleChange}
                     />
                 </label>
                 <button onClick={this.login}>Log In</button>

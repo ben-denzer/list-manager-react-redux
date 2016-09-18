@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import {addItemToDB, removeItemFromDB, toggleCheckDB, deleteListDB} from '../api/listApi';
+import {addItemToDB, removeItemsFromDB, toggleCheckDB, deleteListDB} from '../api/listApi';
 
 export function addNewItem(token, itemName, activeList) {
     return (dispatch) => {
@@ -9,7 +9,7 @@ export function addNewItem(token, itemName, activeList) {
                     type: types.ADD_NEW_ITEM,
                     itemName,
                     activeList,
-                    itemId: data.item_id
+                    item_id: data.item_id
                 });
                 dispatch({type: types.API_SUCCESS});
             },
@@ -26,25 +26,29 @@ export function changeActive(newActive) {
     return {type: types.CHANGE_ACTIVE, newActive};
 }
 
-function deleteItemSuccess(itemName, activeList) {
-    return {type: types.DELETE_ITEM, itemName, activeList};
+function deleteItemSuccess(trash, activeList) {
+    return {type: types.DELETE_ITEMS, trash, activeList};
 }
 
-function deleteItem(token, itemName, activeList, item_id) {
+function deleteItems(token, activeList, trash) {
     return (dispatch) => {
-        removeItemFromDB({token, item_id}).then(
+        removeItemsFromDB({token, trash}).then(
             () => {
-                dispatch(deleteItemSuccess(itemName, activeList));
+                dispatch(deleteItemSuccess(trash, activeList));
             },
             (err) => dispatch({type: types.API_ERROR, err})
         );
     };
 }
 
-export function deleteItemTemp(token, itemName, activeList, item_id) {
+export function deleteItemTemp(token, activeList, item_id, trash) {
+    const itemsToRemove = [...trash, item_id];
     return (dispatch) => {
-        dispatch(putInTrash(itemName));
-        window.undoTimer = setTimeout(() => dispatch(deleteItem(token, itemName, activeList, item_id)), 3000);
+        dispatch(putInTrash(item_id));
+        if (window.undoTimer) {
+            clearTimeout(window.undoTimer);
+        }
+        window.undoTimer = setTimeout(() => dispatch(deleteItems(token, activeList, itemsToRemove)), 3000);
     };
 }
 
@@ -69,8 +73,8 @@ export function newListTextChange(currentText) {
     return {type: types.NEW_LIST_TEXT_CHANGE, currentText};
 }
 
-function putInTrash(itemName) {
-    return {type: types.DELETE_ITEM_TEMP, itemName};
+function putInTrash(item_id) {
+    return {type: types.DELETE_ITEM_TEMP, item_id};
 }
 
 function toggleCheckAPI(token, item_id, oldStatus, dispatch) {

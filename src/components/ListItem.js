@@ -14,9 +14,9 @@ class ListItem extends Component {
         e.stopPropagation();
         this.props.actions.deleteItemTemp(
             this.props.token,
-            this.props.item,
             this.props.activeList,
-            this.props.item_id
+            this.props.item_id,
+            this.props.trash
         );
     }
     undoDelete(e) {
@@ -35,7 +35,7 @@ class ListItem extends Component {
     render() {
         let iconClassName = 'glyphicon glyphicon-';
         this.props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
-        let isTrash = this.props.trash.indexOf(this.props.item) !== -1;
+        let isTrash = this.props.trash.indexOf(this.props.item_id) !== -1;
         return (
             <div>
                 <div className="row">

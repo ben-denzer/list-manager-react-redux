@@ -8,6 +8,6 @@ export const checkUsernameDB = (options) => apiPromise(options, apiUrl + '/auth/
 export const deleteListDB = (options) => apiPromise(options, apiUrl + '/actions/removeList');
 export const loadUserData = (options) => apiPromise(options, apiUrl + '/auth/login');
 export const loginWithToken = (options) => apiPromise(options, apiUrl + '/auth/loginWithToken');
-export const removeItemFromDB = (options) => apiPromise(options, apiUrl + '/actions/removeItem');
+export const removeItemsFromDB = (options) => apiPromise(options, apiUrl + '/actions/removeItems');
 export const signupDB  = (options) => apiPromise(options, apiUrl + '/auth/signup');
 export const toggleCheckDB = (options) => apiPromise(options, apiUrl + '/actions/toggleCheck');

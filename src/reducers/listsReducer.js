@@ -1,10 +1,12 @@
 import initialState from './initialState';
 
 export default function listReducer(state = initialState.lists, action) {
-    let itemIndex = action.itemIndex;
-    let activeListName = action.activeList;
-    let name = action.name;
-    let itemName = action.itemName;
+    const itemIndex = action.itemIndex;
+    const activeListName = action.activeList;
+    const name = action.name;
+    const itemName = action.itemName;
+    const trash = action.trash;
+    const item_id = action.item_id;
     let tempState;
 
     switch(action.type) {
@@ -29,12 +31,14 @@ export default function listReducer(state = initialState.lists, action) {
             );
         case 'ADD_NEW_ITEM':
             tempState = Object.assign({}, state);
-            tempState[activeListName] = [...tempState[activeListName], {item: itemName, finished: false}];
+            tempState[activeListName] = [...tempState[activeListName], {item: itemName, finished: false, item_id}];
             return tempState;
-        case 'DELETE_ITEM':
-            tempState = Object.assign({}, state);
-            tempState[activeListName] = tempState[activeListName].filter(a => a.item !== itemName);
-            return tempState;
+        case 'DELETE_ITEMS':
+            return Object.assign(
+                {},
+                state,
+                {[activeListName]: state[activeListName].filter(a => trash.indexOf(a.item_id) === -1)}
+            );
         case 'ADD_NEW_LIST':
             tempState = Object.assign({}, state);
             return Object.assign({}, tempState, tempState[name] = []);

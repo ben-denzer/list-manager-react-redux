@@ -37,22 +37,22 @@ class ListItem extends Component {
         this.props.checked ? iconClassName += 'check' : iconClassName += 'unchecked';
         let isTrash = this.props.trash.indexOf(this.props.item_id) !== -1;
         return (
-            <div>
-                <div className="row">
-                    <div style={isTrash ? styles.hidden : styles.inline}>
+            <div className="list-item-container">
+                <div className="row list-item-row">
+                    <div className="item-row-left" style={isTrash ? styles.hidden : styles.inline}>
                         <div
                             style={styles.itemStyle}
                             onClick={this.toggleCheck}
-                            className="col-md-12">
+                            className="col-md-12 item-col">
 
                             <span className={iconClassName}></span>
-                            <span style={styles.itemTitleStyle}>{this.props.item}</span>
+                            <span className="item-name">{this.props.item}</span>
                         </div>
                     </div>
                     <button
                         onClick={isTrash ? this.undoDelete : this.deleteItemTemp}
                         className={isTrash ? "btn btn-default btn-sm pull-right": "btn btn-danger btn-sm pull-right"}>
-                        {isTrash ? 'UNDO' : 'Remove Item'}
+                        {isTrash ? 'UNDO' : ' X '}
                     </button>
                 </div>
                 <hr />
@@ -62,13 +62,10 @@ class ListItem extends Component {
 }
 
 let styles = {
-        itemTitleStyle: {
+    itemTitleStyle: {
         marginLeft: '20px'
     },
-        itemStyle: {
-        fontSize: '14pt'
-    },
-        hidden: {
+    hidden: {
         display: 'none'
     },
     inline: {

@@ -8,6 +8,7 @@ import routes from './routes';
 import {Router, browserHistory} from 'react-router';
 import './styles/css/bootstrap.min.css';
 import './styles/css/shop-item.css';
+import './styles/css/main.scss';
 
 let store = configureStore();
 

@@ -31,12 +31,12 @@ const ListView = (props) => {
         }
     }
     return (
-        <div className="col-xs-12 col-sm-9">
-            <div style={styles.showPointer} className="well">
+        <div id="list_view" className="col-xs-12 col-sm-9">
+            <div id="list_well" style={styles.showPointer} className="well">
 
-                <span style={styles.listNameStyle}>{props.activeList || 'No List Selected'}</span>
+                <span id="list_title" style={styles.listNameStyle}>{props.activeList || 'No List Selected'}</span>
 
-                <div style={props.activeList ? styles.floatRight : styles.hidden}>
+                <div id="delete_list" style={props.activeList ? styles.floatRight : styles.hidden}>
                     <button
                         data-toggle="modal"
                         data-target="#myModal"
@@ -47,11 +47,11 @@ const ListView = (props) => {
                 </div>
                 <hr />
 
-                <div style={props.activeList ? !props.items.length ? styles.hidden : null : null}>
+                <div id="item_box" style={props.activeList ? !props.items.length ? styles.hidden : null : null}>
                     {eachItem}
                 </div>
 
-                <div style={!props.activeList ? styles.hidden : null}>
+                <div id="add_item_box" style={!props.activeList ? styles.hidden : null}>
                     <input
                         value={props.newItemText}
                         onKeyUp={props.newItemTextChange}
